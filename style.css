@@ -1,0 +1,464 @@
+/* ═══════════════════════════════════════════════════
+   NOIR CAFÉ — style.css
+   Design System + Layout + Animations
+═══════════════════════════════════════════════════ */
+
+/* ── TOKENS ── */
+:root {
+  --font-d: 'Cormorant Garamond', serif;
+  --font-b: 'Tajawal', sans-serif;
+  --font-m: 'Space Mono', monospace;
+  --gold:   #c8a45a;
+  --white:  #f0e8d8;
+  --muted:  rgba(240,232,216,0.38);
+  --easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur:    0.85s;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: var(--font-b);
+  background: #090704;
+  color: var(--white);
+  overflow: hidden;
+  width: 100vw; height: 100vh;
+  cursor: none;
+  user-select: none;
+  transition: background 1.4s ease;
+}
+img { display: block; max-width: 100%; }
+button { border: none; background: none; font-family: inherit; cursor: none; }
+
+/* ── NOISE ── */
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 900;
+  pointer-events: none; opacity: .03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
+}
+
+/* ═══════════════════════════════════════════════════
+   BACKGROUND LAYERS
+═══════════════════════════════════════════════════ */
+#bg-img {
+  position: fixed; inset: 0; z-index: 0;
+  background-size: cover; background-position: center;
+  opacity: 0;
+  transition: opacity 1.4s ease, background-image .1s;
+}
+#bg-img.show { opacity: 1; }
+
+#bg-radial {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  transition: background 1.4s ease;
+}
+
+/* ── DECO LINES ── */
+.dl { position: fixed; pointer-events: none; z-index: 2; }
+.dl-h { height: 1px; left: 0; right: 0; background: rgba(255,255,255,.04); }
+.dl-v { width: 1px; top: 0; bottom: 0; background: rgba(255,255,255,.04); }
+#dl-t { top: 7%; } #dl-b { bottom: 7%; }
+#dl-l { left: 5%; } #dl-r { right: 5%; }
+
+/* ── DECO RINGS ── */
+.dring {
+  position: fixed; pointer-events: none; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.04); z-index: 2;
+  top: 50%; left: 50%;
+  transition: border-color 1.2s;
+}
+#dr1 {
+  width: 600px; height: 600px;
+  margin: -300px 0 0 -300px;
+  animation: rspin 45s linear infinite;
+}
+#dr1::before {
+  content: ''; position: absolute;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold); opacity: .45;
+  top: -2.5px; left: 50%; transform: translateX(-50%);
+}
+#dr2 {
+  width: 820px; height: 820px;
+  margin: -410px 0 0 -410px;
+  animation: rspin 80s linear infinite reverse;
+  border-color: rgba(255,255,255,.025);
+}
+@keyframes rspin { to { transform: rotate(360deg); } }
+
+/* ═══════════════════════════════════════════════════
+   CURSOR
+═══════════════════════════════════════════════════ */
+#cur {
+  position: fixed; width: 8px; height: 8px; border-radius: 50%;
+  background: #fff; pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%); mix-blend-mode: difference;
+}
+#cur-ring {
+  position: fixed; width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.3); pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: width .3s var(--easing), height .3s var(--easing), border-color .3s;
+}
+
+/* ═══════════════════════════════════════════════════
+   LOGO
+═══════════════════════════════════════════════════ */
+#logo {
+  position: fixed; top: 24px; right: 28px; z-index: 200;
+  text-align: right; pointer-events: none;
+  transition: opacity .4s;
+}
+.logo-name {
+  font-family: var(--font-d); font-size: .95rem;
+  letter-spacing: .42em; color: var(--gold);
+  font-weight: 300; text-transform: uppercase;
+  transition: color .8s;
+}
+.logo-sub {
+  font-family: var(--font-m); font-size: .46rem;
+  letter-spacing: .22em; color: rgba(240,232,216,.26);
+  text-transform: uppercase; margin-top: 3px;
+}
+
+/* ─ CLOSE BTN ─ */
+#close-btn {
+  position: fixed; top: 24px; left: 28px; z-index: 200;
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.14);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,.4); cursor: none;
+  opacity: 0; pointer-events: none;
+  transition: opacity .4s, border-color .3s, color .3s, background .3s;
+}
+#close-btn.show { opacity: 1; pointer-events: auto; }
+#close-btn:hover { border-color: rgba(255,255,255,.5); color: #fff; background: rgba(255,255,255,.06); }
+#close-btn svg { width: 13px; height: 13px; }
+
+/* ─ COUNTER ─ */
+#counter {
+  position: fixed; bottom: 28px; right: 28px; z-index: 200;
+  font-family: var(--font-m); font-size: .56rem;
+  letter-spacing: .18em; color: rgba(255,255,255,.22);
+  transition: opacity .4s;
+}
+
+/* ─ SWIPE HINT ─ */
+#swipe-hint {
+  position: fixed; bottom: 72px; left: 50%; transform: translateX(-50%);
+  z-index: 200; font-family: var(--font-m); font-size: .52rem;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(255,255,255,.16); pointer-events: none;
+  transition: opacity .6s;
+}
+
+/* ─ SCROLL HINT ─ */
+#scroll-hint {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+  z-index: 200; display: flex; flex-direction: column; align-items: center; gap: 5px;
+  opacity: 0; pointer-events: none; transition: opacity .6s;
+}
+#scroll-hint.show { opacity: 1; }
+#scroll-hint span {
+  font-family: var(--font-m); font-size: .5rem;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: rgba(255,255,255,.22);
+}
+.scroll-arrows { display: flex; flex-direction: column; gap: 2px; align-items: center; }
+.scroll-arrows i {
+  display: block; width: 1px; height: 7px;
+  background: var(--gold); animation: sarr 1.5s ease infinite;
+}
+.scroll-arrows i:nth-child(2) { animation-delay: .18s; }
+.scroll-arrows i:nth-child(3) { animation-delay: .36s; }
+@keyframes sarr {
+  0%,100% { opacity: .2; transform: scaleY(.5); }
+  50%      { opacity: 1;  transform: scaleY(1); }
+}
+
+/* ═══════════════════════════════════════════════════
+   NAV DOTS
+═══════════════════════════════════════════════════ */
+#nav-dots {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+  z-index: 200; display: flex; gap: 10px; align-items: center;
+  transition: opacity .4s;
+}
+.ndot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(255,255,255,.18); cursor: none;
+  transition: background .4s, width .4s, border-radius .4s;
+}
+.ndot.on { width: 18px; border-radius: 3px; background: var(--gold); }
+
+/* ═══════════════════════════════════════════════════
+   CAROUSEL STAGE
+   الدائرة المنحنية في أعلى الشاشة
+═══════════════════════════════════════════════════ */
+#carousel-stage {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  /* ارتفاع منطقة الكاروسيل = 58% من الشاشة */
+  height: 58vh;
+  z-index: 20;
+  /* overflow مخفي لإخفاء الأكواب خارج المنطقة */
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* ─ CUP ITEM ─ */
+.cup-item {
+  position: absolute;
+  bottom: 0;
+  /* موضع X يُحدَّث بـ JS */
+  display: flex; flex-direction: column; align-items: center;
+  pointer-events: none;
+  will-change: transform, opacity, left;
+  transition:
+    left var(--dur) var(--easing),
+    transform var(--dur) var(--easing),
+    opacity .65s ease,
+    filter .65s ease;
+}
+
+/* صورة الكوب */
+.cup-item img, .cup-item .cup-ph {
+  width: 200px; max-width: 46vw;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 24px 50px rgba(0,0,0,.75));
+  transition: filter .6s, width var(--dur) var(--easing);
+  display: block;
+}
+
+/* Placeholder */
+.cup-ph {
+  height: 240px; width: 160px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px;
+  border: 1px dashed rgba(255,255,255,.1); border-radius: 14px;
+  color: rgba(255,255,255,.22); font-family: var(--font-m);
+  font-size: .56rem; letter-spacing: .1em; text-transform: uppercase; text-align: center;
+}
+.cup-ph svg { width: 38px; height: 38px; opacity: .18; }
+
+/* الكوب النشط — قابل للنقر */
+.cup-item.active {
+  pointer-events: auto;
+  cursor: none;
+}
+
+/* هالة تحت الكوب النشط */
+.cup-halo {
+  position: absolute;
+  bottom: -10px;
+  width: 160px; height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, var(--gold) 0%, transparent 72%);
+  opacity: 0; filter: blur(8px);
+  transition: opacity .8s;
+  pointer-events: none;
+}
+.cup-item.active .cup-halo { opacity: .35; }
+
+/* ═══════════════════════════════════════════════════
+   HERO SECTION — يظهر عند الضغط على الكوب
+═══════════════════════════════════════════════════ */
+#hero-section {
+  position: fixed; inset: 0; z-index: 30;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+  /* هذه الطبقة فقط للمحتوى — لا خلفية هنا */
+}
+
+/* الكوب البطل — يظهر في المنتصف */
+#hero-cup {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  z-index: 35;
+  pointer-events: none;
+  will-change: transform, opacity;
+  transition: transform .9s var(--easing), opacity .7s ease;
+}
+#hero-cup.show {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+#hero-cup img, #hero-cup .cup-ph {
+  width: 260px; max-width: 58vw;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 70px rgba(0,0,0,.8));
+}
+
+/* اسم الكوب خلف الصورة — ضخم وشفاف */
+#hero-name {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 34; /* خلف الكوب الذي هو 35 */
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .8s ease .4s;
+  white-space: nowrap;
+}
+#hero-name.show { opacity: 1; }
+
+.hero-name-line {
+  display: block;
+  font-family: var(--font-d);
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: .06em;
+  /* شفاف جداً مع ظل ضبابي */
+  color: rgba(240,232,216, 0.12);
+  text-shadow:
+    0 0 40px rgba(200,164,90,.25),
+    0 0 80px rgba(200,164,90,.12),
+    0 4px 20px rgba(0,0,0,.6);
+  transition: color .8s, text-shadow .8s;
+}
+
+/* ═══════════════════════════════════════════════════
+   SCROLL SECTIONS — تظهر عند التمرير
+═══════════════════════════════════════════════════ */
+/* حاوية التمرير — ارتفاع 300vh = 3 أقسام */
+#scroll-container {
+  position: fixed; inset: 0; z-index: 0;
+  overflow-y: scroll;
+  /* مخفي في البداية */
+  opacity: 0; pointer-events: none;
+  transition: opacity .5s;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+}
+#scroll-container::-webkit-scrollbar { display: none; }
+#scroll-container.show { opacity: 1; pointer-events: auto; }
+
+.scroll-page {
+  height: 100vh; width: 100%;
+  scroll-snap-align: start;
+  position: relative;
+  display: flex; align-items: center;
+}
+
+/* ── SCROLL PAGE 1 — HERO STICKY ── */
+#sp-hero { justify-content: center; }
+
+/* ── SCROLL PAGE 2 — INGREDIENTS ── */
+#sp-ingredients { justify-content: flex-end; padding: 0 6vw; }
+
+/* ── SCROLL PAGE 3 — FEATURES ── */
+#sp-features { justify-content: flex-start; padding: 0 6vw; }
+
+/* الكوب الصغير في scroll sections */
+#scroll-cup {
+  position: fixed;
+  z-index: 36;
+  pointer-events: none;
+  will-change: left, top, transform;
+  transition: left .9s var(--easing), top .9s var(--easing), transform .9s var(--easing);
+  opacity: 0;
+}
+#scroll-cup.show { opacity: 1; }
+#scroll-cup img, #scroll-cup .cup-ph-sm {
+  width: 180px; max-width: 42vw;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 50px rgba(0,0,0,.75));
+}
+
+/* ─ INFO PANELS ─ */
+.info-panel {
+  position: absolute;
+  opacity: 0; pointer-events: none;
+  transition: opacity .7s var(--easing), transform .7s var(--easing);
+}
+.info-panel.show { opacity: 1; pointer-events: auto; }
+
+/* Label صغير */
+.ip-label {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-m); font-size: .52rem;
+  letter-spacing: .26em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 18px;
+  transition: color .8s;
+}
+.ip-label::after { content: ''; flex:1; height:1px; background: rgba(200,164,90,.2); }
+
+/* عنوان القسم */
+.ip-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  font-weight: 300; line-height: 1.15;
+  color: var(--white); margin-bottom: 26px;
+  letter-spacing: .03em;
+}
+.ip-title em { font-style: italic; color: var(--gold); transition: color .8s; }
+
+/* قائمة العناصر */
+.ip-rows { display: flex; flex-direction: column; gap: 14px; }
+.ip-row {
+  opacity: 0; transform: translateY(14px);
+  transition: opacity .5s ease, transform .5s var(--easing);
+}
+.ip-row.show { opacity: 1; transform: translateY(0); }
+.ip-row h4 { font-size: .85rem; font-weight: 700; color: var(--white); margin-bottom: 2px; }
+.ip-row p  { font-size: .76rem; color: var(--muted); line-height: 1.6; }
+
+/* جلسات */
+.sessions-row {
+  display: flex; flex-wrap: wrap; gap: 7px; margin-top: 20px;
+}
+.session-tag {
+  font-family: var(--font-m); font-size: .52rem;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(240,232,216,.45);
+  border: 1px solid rgba(255,255,255,.1);
+  padding: 5px 13px; border-radius: 100px;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity .4s ease, transform .4s var(--easing);
+}
+.session-tag.show { opacity: 1; transform: translateY(0); }
+
+/* زر الطلب */
+.ip-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 11px 30px;
+  border: 1px solid var(--gold); color: var(--gold);
+  font-family: var(--font-b); font-size: .82rem; font-weight: 700;
+  border-radius: 100px; cursor: none; margin-top: 22px;
+  transition: background .3s, color .3s, transform .2s;
+  opacity: 0; transition-delay: .5s;
+}
+.ip-btn.show { opacity: 1; }
+.ip-btn:hover { background: var(--gold); color: #090704; transform: translateY(-2px); }
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
+@media (max-width: 700px) {
+  body { cursor: auto; }
+  #cur, #cur-ring { display: none; }
+
+  #carousel-stage { height: 52vh; }
+  .cup-item img, .cup-item .cup-ph { width: 150px; }
+  #hero-cup img { width: 200px; }
+  .hero-name-line { font-size: clamp(2.2rem, 12vw, 4rem); }
+  #scroll-cup img { width: 140px; }
+  #dr1 { width: 360px; height: 360px; margin: -180px 0 0 -180px; }
+  #dr2 { width: 520px; height: 520px; margin: -260px 0 0 -260px; }
+
+  #sp-ingredients, #sp-features { padding: 0 4vw; }
+  .ip-title { font-size: 1.5rem; }
+}
+
+@media (min-width: 1200px) {
+  .cup-item img { width: 240px; }
+  #hero-cup img { width: 320px; }
+}
