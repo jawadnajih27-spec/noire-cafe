@@ -1,0 +1,82 @@
+{
+  "cups": [
+    {
+      "id": 0,
+      "slug": "espresso",
+      "name": ["The Dark", "Soul"],
+      "label": "01 — Espresso",
+      "image": "images/espresso.png",
+      "bg": "images/bg/bg-0.jpg",
+      "bgColor": "#090704",
+      "radial": "rgba(200,140,40,0.10)",
+      "gold": "#c8a45a",
+      "halo": "rgba(200,140,40,0.22)",
+      "price": "18",
+      "unit": "كوب",
+      "currency": "AED",
+      "ingredients": [
+        { "title": "حبوب أرابيكا", "desc": "إثيوبيا — تحميص داكن" },
+        { "title": "ضغط 9 بار",    "desc": "استخراج في 25 ثانية" },
+        { "title": "حجم 30ml",     "desc": "تركيز استثنائي" }
+      ],
+      "features": [
+        { "title": "كريما ذهبية",   "desc": "طبقة حريرية كثيفة فوق الكوب" },
+        { "title": "مرارة متوازنة", "desc": "نكهة عميقة ومعقدة" },
+        { "title": "أصل إثيوبي",   "desc": "من أعلى المرتفعات" }
+      ],
+      "sessions": ["الصباح الباكر", "قبل التركيز", "بعد الغداء"]
+    },
+    {
+      "id": 1,
+      "slug": "cappuccino",
+      "name": ["Silky Cloud", "Ritual"],
+      "label": "02 — Cappuccino",
+      "image": "images/cappuccino.png",
+      "bg": "images/bg/bg-1.jpg",
+      "bgColor": "#0e0a05",
+      "radial": "rgba(190,140,80,0.10)",
+      "gold": "#d4aa6e",
+      "halo": "rgba(200,150,80,0.22)",
+      "price": "22",
+      "unit": "كوب",
+      "currency": "AED",
+      "ingredients": [
+        { "title": "إسبريسو دبل",     "desc": "قاعدة غنية ومركّزة" },
+        { "title": "حليب كامل الدسم", "desc": "رغوة حريرية ناعمة" },
+        { "title": "قرفة سيلانية",    "desc": "لمسة دافئة خفية" }
+      ],
+      "features": [
+        { "title": "توازن مثالي",  "desc": "قهوة + حليب + رغوة بنسبة 1:1:1" },
+        { "title": "لاتيه آرت",    "desc": "رسمة يدوية في كل كوب" },
+        { "title": "دفء يدوم",     "desc": "كوب سيراميك حافظ للحرارة" }
+      ],
+      "sessions": ["وقت الاسترخاء", "لقاء الأصدقاء", "المساء الدافئ"]
+    },
+    {
+      "id": 2,
+      "slug": "matcha",
+      "name": ["Zen Green", "Ceremony"],
+      "label": "03 — Matcha Latte",
+      "image": "images/matcha.png",
+      "bg": "images/bg/bg-2.jpg",
+      "bgColor": "#050d06",
+      "radial": "rgba(70,140,70,0.10)",
+      "gold": "#82c47c",
+      "halo": "rgba(80,160,80,0.22)",
+      "price": "26",
+      "unit": "كوب",
+      "currency": "AED",
+      "ingredients": [
+        { "title": "ماتشا سيريمونيال", "desc": "درجة A — أوجي، اليابان" },
+        { "title": "حليب شوفان",        "desc": "كريمي خفيف الوزن" },
+        { "title": "عسل أبيض خام",     "desc": "حلاوة طبيعية خالصة" }
+      ],
+      "features": [
+        { "title": "L-Theanine",      "desc": "تركيز هادئ بلا قلق" },
+        { "title": "أنتيأوكسيدانت",  "desc": "أعلى من الشاي الأخضر" },
+        { "title": "طاقة متوازنة",    "desc": "بدون كافيين زائد" }
+      ],
+      "sessions": ["التأمل الصباحي", "جلسة العمل الهادئة", "قبل النوم"]
+    }
+  ]
+}
