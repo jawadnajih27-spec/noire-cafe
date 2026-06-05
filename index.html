@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NOIR CAFÉ — Premium Coffee</title>
+  <meta name="description" content="قهوة فاخرة — إسبريسو، كابتشينو، ماتشا لاتيه"/>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Tajawal:wght@300;400;500;700;900&family=Space+Mono:ital@0;1&display=swap" rel="stylesheet"/>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+  <!-- ══ CURSOR ══ -->
+  <div id="cur"></div>
+  <div id="cur-ring"></div>
+
+  <!-- ══ BACKGROUND ══ -->
+  <!--
+    ✏️ الخلفيات:
+       ضع ملفاتك في:
+         images/bg/bg-0.jpg  ← خلفية الإسبريسو
+         images/bg/bg-1.jpg  ← خلفية الكابتشينو
+         images/bg/bg-2.jpg  ← خلفية الماتشا
+       إذا لم توجد الصور تبقى الخلفية اللونية فقط
+  -->
+  <div id="bg-img"></div>
+  <div id="bg-radial"></div>
+
+  <!-- ══ DECO ══ -->
+  <div class="dl dl-h" id="dl-t"></div>
+  <div class="dl dl-h" id="dl-b"></div>
+  <div class="dl dl-v" id="dl-l"></div>
+  <div class="dl dl-v" id="dl-r"></div>
+  <div class="dring" id="dr1"></div>
+  <div class="dring" id="dr2"></div>
+
+  <!-- ══ LOGO ══ -->
+  <div id="logo">
+    <!--
+      ✏️ غيّر اسم البراند هنا
+    -->
+    <div class="logo-name">Noir Café</div>
+    <div class="logo-sub">Premium Collection</div>
+  </div>
+
+  <!-- ══ CLOSE BTN ══ -->
+  <button id="close-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="13" height="13">
+      <path d="M18 6L6 18M6 6l12 12"/>
+    </svg>
+  </button>
+
+  <!-- ══ COUNTER ══ -->
+  <div id="counter">01 / 03</div>
+
+  <!-- ══ HINTS ══ -->
+  <div id="swipe-hint">← اسحب للتنقل →</div>
+
+  <div id="scroll-hint">
+    <span>مرر للأعلى</span>
+    <div class="scroll-arrows">
+      <i></i><i></i><i></i>
+    </div>
+  </div>
+
+  <!-- ══ NAV DOTS ══ -->
+  <div id="nav-dots">
+    <!--
+      عدد الـ dots = عدد الأكواب في data.json
+      ✏️ إذا أضفت كوباً رابعاً أضف ndot رابع هنا
+    -->
+    <div class="ndot on"  data-i="0"></div>
+    <div class="ndot"     data-i="1"></div>
+    <div class="ndot"     data-i="2"></div>
+  </div>
+
+  <!-- ══ CAROUSEL STAGE ══
+       الأكواب تُبنى هنا ديناميكياً بـ JS
+  ══ -->
+  <div id="carousel-stage"></div>
+
+  <!-- ══ HERO SECTION ══ -->
+  <div id="hero-section">
+    <!-- الكوب البطل — يظهر عند الضغط -->
+    <div id="hero-cup"></div>
+    <!-- الاسم خلف الكوب -->
+    <div id="hero-name"></div>
+  </div>
+
+  <!-- ══ SCROLL CUP ══
+       صورة الكوب الصغيرة التي تتحرك في أقسام التمرير
+  ══ -->
+  <div id="scroll-cup"></div>
+
+  <!-- ══ SCROLL CONTAINER ══
+       صفحات التمرير تُبنى ديناميكياً بـ JS
+  ══ -->
+  <div id="scroll-container"></div>
+
+  <!-- ══ SCRIPTS ══ -->
+  <!--
+    type="module" مهم — يتيح استخدام import/export
+    الصفحة تعمل على أي سيرفير (Vercel, Netlify, Apache, Nginx)
+    لا تعمل مع file:// مباشرة — استخدم Live Server أو رفع على سيرفير
+  -->
+  <script type="module" src="js/main.js"></script>
+
+</body>
+</html>
